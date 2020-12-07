@@ -1,25 +1,21 @@
 import React, { Component } from "react";
-
+import API from "../utils/API";
 class CardBody extends Component {
   render() {
     return (
-        
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Role</th>
-            <th scope="col">Department</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Mark</td>
-            <td>Fisherman</td>
-            <td>Fish Department</td>
-          </tr>
-        </tbody>
-      </table>
+      <>
+        {API.getAllEmployees().then((employees) => {
+          employees.map((employee) => {
+            return (
+              <tbody key={employee.id}>
+                <th scope="col">{employee.name}</th>
+                <th scope="col">{employee.role}</th>
+                <th scope="col">{employee.department}</th>
+              </tbody>
+            );
+          });
+        })}
+      </>
     );
   }
 }
