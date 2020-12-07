@@ -1,58 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardBody from "./Cardbody";
+import { getAllEmployees } from "../util/API";
 function MainBody() {
   const [sortState, setSortState] = useState({
-    employees: [],
-    search: "",
     sortBy: "",
     asc: true,
   });
   const sortList = (input) => {
-    console.log("poggers");
-    if (sortState.sortBy === input) {
-      let sort;
-      if (sortState.asc) {
-        sort = sortState.employees.sort((a, b) =>
-          a[input] < b[input] ? 1 : -1
-        );
-      } else {
-        sort = sortState.employees.sort((a, b) =>
-          a[input] > b[input] ? 1 : -1
-        );
-      }
-      setSortState({
-        ...sortState,
-        employees: sort,
-        sortBy: input,
-        asc: !sortState.asc,
+    console.log("clicked");
+    setSortState({
+      ...sortState,
+      sortBy: input,
+      asc: !sortState.asc,
+    });
+    let sort;
+    if (sortState.asc) {
+      sort = employeesState.sort((a, b) => {
+        return a[input] > b[input] ? 1 : -1;
       });
     } else {
-      setSortState({
-        ...sortState,
-        employees: sortState.employees.sort((a, b) =>
-          a[input] > b[input] ? 1 : -1
-        ),
-        sortBy: input,
-        asc: !sortState.asc,
-      });
+      sort = employeesState.sort((a, b) => (a[input] < b[input] ? 1 : -1));
     }
+    setEmployeesState(sort);
   };
+  const [employeesState, setEmployeesState] = useState([]);
+
+  useEffect(() => {
+    getAllEmployees.then((data) => {
+      setEmployeesState(data);
+    });
+  }, []);
+  // useEffect(() => {
+  //   let sort;
+  //   if (sortState.asc) {
+  //     sort = employeesState.sort((a, b) => {
+  //       console.log(input);
+  //       return a[sortState.sortBy] > b[sortState.sortBy] ? 1 : -1;
+  //     });
+  //   } else {
+  //     sort = employeesState.sort((a, b) =>
+  //       a[sortState.sortBy] < b[sortState.sortBy] ? 1 : -1
+  //     );
+  //   }
+  //   setEmployeesState(sort);
+  // }, [sortState, employeesState]);
+  console.log("employeestate", employeesState);
   return (
     <table className="table">
       <thead>
         <tr>
-          <th scope="col" onClick={sortList}>
+          <th scope="col" onClick={() => sortList("name")}>
             Name
           </th>
-          <th scope="col" onClick={sortList}>
+          <th scope="col" onClick={() => sortList("role")}>
             Role
           </th>
-          <th scope="col" onClick={sortList}>
+          <th scope="col" onClick={() => sortList("department")}>
             Department
           </th>
         </tr>
       </thead>
-      <CardBody />
+      <CardBody sortState={sortState} employees={employeesState} />
     </table>
   );
 }
