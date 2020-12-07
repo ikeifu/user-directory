@@ -1,4 +1,4 @@
-import CardBody from "./components/Cardbody";
+import MainBody from "./components/Mainbody";
 import SearchBar from "./components/SearchBar";
 import "./App.css";
 
@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <h1>Your library of employees</h1>
       <SearchBar />
-      <CardBody />
+      <MainBody />
     </div>
   );
 }
