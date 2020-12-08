@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { getAllEmployees } from "../util/API";
+import React from "react";
 function CardBody({ sortState, employees }) {
   console.log(employees);
   console.log("stringify", JSON.stringify(employees));

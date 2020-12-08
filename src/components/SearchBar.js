@@ -1,22 +1,16 @@
 import React from "react";
 
-function SearchBar(props) {
+function SearchBar({ updateSearch }) {
   return (
-    <form>
-      <div className="form-group">
-        <label htmlFor="search">Search:</label>
-        <input
-          onChange={props.handleInputChange}
-          value={props.value}
-          name="search"
-          type="text"
-          className="form-control"
-          placeholder="Search by name"
-          id="search"
-        />
-        <br />
-      </div>
+    <form id="directory-form" onSubmit={(e) => e.preventDefault()}>
+      <label>Search for Employee:</label>
+      <input
+        type="text"
+        placeholder="Enter name"
+        onChange={(e) => updateSearch(e.target.value)}
+      />
     </form>
   );
 }
+
 export default SearchBar;
