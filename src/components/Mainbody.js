@@ -30,7 +30,6 @@ function MainBody() {
       ...sortState,
       search: term,
     });
-    
   };
   const [employeesState, setEmployeesState] = useState([]);
 
@@ -56,7 +55,7 @@ function MainBody() {
             </th>
           </tr>
         </thead>
-        <CardBody sortState={sortState} employees={employeesState} />
+        <CardBody search={sortState.search} employees={employeesState} />
       </table>
     </div>
   );
